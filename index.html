@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./favicon.ico" sizes="32x32" />
+    <link
+      rel="stylesheet"
+      href="./node_modules/modern-normalize/modern-normalize.css"
+    />
+    <title>Bound</title>
+  </head>
+  <body>
+    <style>
+      @font-face {
+        font-family: monogram;
+        src: url('./monogram.ttf');
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        text-size-adjust: none;
+        -moz-text-size-adjust: none;
+        -webkit-text-size-adjust: none;
+      }
+
+      body {
+        font-family: monogram, monospace;
+        font-size: 2rem;
+        word-spacing: 0.2rem;
+        line-height: 1.3;
+        min-height: 100svh;
+        overflow: hidden;
+      }
+
+      #app {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+    <div id="app">
+      <canvas id="game"></canvas>
+    </div>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
