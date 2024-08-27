@@ -9,13 +9,15 @@ import {
   PIPE_RAND,
   PIPE_SCALE_FACTOR,
   PIPE_SPEED,
+  pipeColor,
   PLAYER_JUMP,
   PLAYER_SCALE_FACTOR,
+  textColor,
 } from './constants';
 import { k } from './kaboomCtx';
 import { setCamScale } from './utils';
 
-k.loadSprite('bg', './bg.png');
+k.loadSprite('bg', './bg-di.png');
 k.loadSprite('player', './boundman.png');
 k.loadSprite('pipe', './pipe.png');
 k.loadSound('bounce', './bounce.mp3');
@@ -45,6 +47,7 @@ k.scene('start', () => {
         size: 28,
       }
     ),
+    textColor,
     k.anchor('center'),
     k.pos(halfWidth, halfHeight),
   ]);
@@ -60,6 +63,7 @@ k.scene('game', () => {
 
   const scoreText = k.add([
     k.text(score, { font: 'monogram', size: 100 }),
+    textColor,
     k.pos(25, 0),
   ]);
 
@@ -78,6 +82,7 @@ k.scene('game', () => {
     k.add([
       k.sprite('pipe'),
       k.scale(PIPE_SCALE_FACTOR),
+      pipeColor,
       k.area(),
       k.pos(fullWidth, halfHeight + offset + PIPE_GAP / 2),
       { passed: false },
@@ -87,6 +92,7 @@ k.scene('game', () => {
     k.add([
       k.sprite('pipe', { flipY: true }),
       k.scale(PIPE_SCALE_FACTOR),
+      pipeColor,
       k.area(),
       k.anchor('botleft'),
       k.pos(fullWidth, halfHeight + offset - PIPE_GAP / 2),
@@ -165,6 +171,7 @@ k.scene('gameover', (score) => {
         size: 28,
       }
     ),
+    textColor,
     k.anchor('center'),
     k.pos(halfWidth, halfHeight),
   ]);

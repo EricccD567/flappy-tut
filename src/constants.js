@@ -1,5 +1,8 @@
 import { k } from './kaboomCtx';
 
+export const textColor = k.color(0, 0, 0);
+export const pipeColor = k.color(125, 206, 235);
+
 export const fullHeight = k.height();
 export const fullWidth = k.width();
 export const halfHeight = k.height() / 2;
