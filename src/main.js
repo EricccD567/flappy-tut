@@ -24,21 +24,7 @@ k.setCursor('url(./cursor.png), auto');
 
 let highScore = 0;
 
-k.scene('start', () => {
-  k.add([k.sprite('bg', { width: fullWidth, height: fullHeight })]);
-
-  k.add([
-    k.text(
-      'Space/Click/Tap to Jump' + '\n' + '\n' + 'Space/Click/Tap to Start',
-      {
-        size: 28,
-        font: 'monogram',
-      }
-    ),
-    k.anchor('center'),
-    k.pos(halfWidth, halfHeight),
-  ]);
-
+function handleStart() {
   k.onKeyPress('space', () => {
     k.go('game');
   });
@@ -46,16 +32,34 @@ k.scene('start', () => {
   k.onMousePress((mouseBtn) => {
     if (mouseBtn === 'left') k.go('game');
   });
+}
+
+k.scene('start', () => {
+  k.add([k.sprite('bg', { height: fullHeight, width: fullWidth })]);
+
+  k.add([
+    k.text(
+      'Space/Click/Tap to Jump' + '\n' + '\n' + 'Space/Click/Tap to Start',
+      {
+        font: 'monogram',
+        size: 28,
+      }
+    ),
+    k.anchor('center'),
+    k.pos(halfWidth, halfHeight),
+  ]);
+
+  handleStart();
 });
 
 k.scene('game', () => {
   let score = 0;
 
-  k.add([k.sprite('bg', { width: fullWidth, height: fullHeight })]);
+  k.add([k.sprite('bg', { height: fullHeight, width: fullWidth })]);
   k.setGravity(GRAVITY);
 
   const scoreText = k.add([
-    k.text(score.toString(), { size: 100, font: 'monogram' }),
+    k.text(score, { font: 'monogram', size: 100 }),
     k.pos(25, 0),
   ]);
 
@@ -97,10 +101,10 @@ k.scene('game', () => {
   k.onUpdate('pipe', (pipe) => {
     pipe.move(-PIPE_SPEED, 0);
 
-    if (pipe.passed === false && pipe.pos.x < player.pos.x) {
+    if (pipe.passed === false && player.pos.x > pipe.pos.x) {
       pipe.passed = true;
       score += 1;
-      scoreText.text = score.toString();
+      scoreText.text = score;
     }
   });
 
@@ -117,15 +121,18 @@ k.scene('game', () => {
     }
   });
 
-  k.onKeyPress('space', () => {
+  function handleJump() {
     k.play('bounce');
     player.jump(PLAYER_JUMP);
+  }
+
+  k.onKeyPress('space', () => {
+    handleJump();
   });
 
   k.onMousePress((mouseBtn) => {
     if (mouseBtn === 'left') {
-      k.play('bounce');
-      player.jump(PLAYER_JUMP);
+      handleJump();
     }
   });
 
@@ -141,7 +148,7 @@ k.scene('gameover', (score) => {
     highScore = score;
   }
 
-  k.add([k.sprite('bg', { width: fullWidth, height: fullHeight })]);
+  k.add([k.sprite('bg', { height: fullHeight, width: fullWidth })]);
 
   k.add([
     k.text(
@@ -154,21 +161,15 @@ k.scene('gameover', (score) => {
         '\n' +
         'Space/Click/Tap to Restart',
       {
-        size: 28,
         font: 'monogram',
+        size: 28,
       }
     ),
     k.anchor('center'),
     k.pos(halfWidth, halfHeight),
   ]);
 
-  k.onKeyPress('space', () => {
-    k.go('game');
-  });
-
-  k.onMousePress((mouseBtn) => {
-    if (mouseBtn === 'left') k.go('game');
-  });
+  handleStart();
 });
 
 k.go('start');
