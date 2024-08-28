@@ -15,7 +15,6 @@ import {
   textColor,
 } from './constants';
 import { k } from './kaboomCtx';
-import { setCamScale } from './utils';
 
 k.loadSprite('bg', './bg-di.png');
 k.loadSprite('player', './boundman.png');
@@ -140,12 +139,6 @@ k.scene('game', () => {
     if (mouseBtn === 'left') {
       handleJump();
     }
-  });
-
-  setCamScale(k);
-
-  k.onResize(() => {
-    setCamScale(k);
   });
 });
 
